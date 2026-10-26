@@ -108,6 +108,20 @@ public class AVLTree<K extends Comparable<K>, E> {
       return inOrderValues(node.left) + node.value + inOrderValues(node.right);
    }
 
+   public String preOrderKeys() {
+      return preOrderKeys(root);
+   }
+
+   private String preOrderKeys(TreeNode node) {
+      if (node == null)
+         return "";
+      return node.key + " " + preOrderKeys(node.left) + preOrderKeys(node.right);
+   }
+
+   public int getHeight() {
+      return height(root);
+   }
+
    public boolean isBalanced() {
       return isBalanced(root);
    }
@@ -133,5 +147,18 @@ public class AVLTree<K extends Comparable<K>, E> {
       for (int i = 0; i < myInts.length; i++)
          tree.root = tree.insert(tree.root, myInts[i], myString.substring(i, i + 1));
 
+      System.out.println("Inserted: 6 1 4 7 9 3 8 0 2 5 6 4");
+      System.out.println("In order:  " + tree.inOrderKeys());
+      System.out.println("Pre order: " + tree.preOrderKeys());
+      System.out.println("Values:    " + tree.inOrderValues());
+      System.out.println("Height: " + tree.getHeight() + "   Balanced? " + tree.isBalanced());
+
+      //sorted input is the worst case for a normal BST (it turns into a linked list)
+      AVLTree<Integer, Integer> sorted = new AVLTree<>();
+      for (int i = 1; i <= 1000; i++)
+         sorted.root = sorted.insert(sorted.root, i, i);
+      System.out.println();
+      System.out.println("Inserted 1 to 1000 in order");
+      System.out.println("Height: " + sorted.getHeight() + " (a plain BST would be 1000)   Balanced? " + sorted.isBalanced());
    }
 }
